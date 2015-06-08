@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A4F18481B260F5C0057BB4A /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4F18471B260F5C0057BB4A /* Entry.swift */; };
 		3A4F184C1B26109A0057BB4A /* ListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4F184B1B26109A0057BB4A /* ListViewCell.swift */; };
+		3A4F184E1B261A960057BB4A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4F184D1B261A960057BB4A /* DetailViewController.swift */; };
 		3ACFB03F1B24C6FD00FE84A1 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFB03E1B24C6FD00FE84A1 /* ListViewController.swift */; };
 		3AF1F2F01B1F6712004E05DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF1F2EF1B1F6712004E05DD /* AppDelegate.swift */; };
 		3AF1F2F51B1F6712004E05DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1F2F31B1F6712004E05DD /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		3A4F18471B260F5C0057BB4A /* Entry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		3A4F184B1B26109A0057BB4A /* ListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewCell.swift; sourceTree = "<group>"; };
+		3A4F184D1B261A960057BB4A /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		3ACFB03E1B24C6FD00FE84A1 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		3AF1F2EA1B1F6712004E05DD /* BootCamp01.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BootCamp01.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF1F2EE1B1F6712004E05DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			children = (
 				3AF1F2EF1B1F6712004E05DD /* AppDelegate.swift */,
 				3AF1F2F31B1F6712004E05DD /* Main.storyboard */,
+				3A4F184D1B261A960057BB4A /* DetailViewController.swift */,
 				3A4F184B1B26109A0057BB4A /* ListViewCell.swift */,
 				3A4F18471B260F5C0057BB4A /* Entry.swift */,
 				3ACFB03E1B24C6FD00FE84A1 /* ListViewController.swift */,
@@ -220,6 +223,7 @@
 			files = (
 				3A4F184C1B26109A0057BB4A /* ListViewCell.swift in Sources */,
 				3A4F18481B260F5C0057BB4A /* Entry.swift in Sources */,
+				3A4F184E1B261A960057BB4A /* DetailViewController.swift in Sources */,
 				3ACFB03F1B24C6FD00FE84A1 /* ListViewController.swift in Sources */,
 				3AF1F2F01B1F6712004E05DD /* AppDelegate.swift in Sources */,
 			);

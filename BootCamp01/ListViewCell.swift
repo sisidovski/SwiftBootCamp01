@@ -23,9 +23,12 @@ class ListViewCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    
 
         // Configure the view for the selected state
     }
+    
+    
     
     func content(title: String, url: String, author: String, thumbnail: String?) -> Void {
         titleLabel.text = title
