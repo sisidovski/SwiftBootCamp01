@@ -34,5 +34,12 @@ class ListViewCell: UITableViewCell {
         titleLabel.text = title
         authorLabel.text = author
         entryUrl = url
+        
+        if thumbnail != nil {
+            let imageUrl = NSURL(string: thumbnail!)
+            let imageData = NSData(contentsOfURL: imageUrl!, options: NSDataReadingOptions.DataReadingMappedIfSafe, error: nil)
+            let image = UIImage(data: imageData!)
+            thumbnailImage.image = image
+        }
     }
 }

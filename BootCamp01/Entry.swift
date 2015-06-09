@@ -12,4 +12,5 @@ class Entry: NSObject {
     var title: String!
     var link: String!
     var author: String!
+    var imageUrl: String?
 }

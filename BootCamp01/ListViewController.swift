@@ -25,10 +25,12 @@ class ListViewController: UITableViewController, UITableViewDataSource, UITableV
     // atom parser
     // https://tools.ietf.org/html/rfc4287
     var currentElementName: String?
-    let entryElementName = "entry"
-    let titleElementName = "title"
-    let urlElementName = "url"
-    let authorElementName = "name"
+    var contentHtmlString: String = ""
+    let entryElementName   = "entry"
+    let titleElementName   = "title"
+    let urlElementName     = "url"
+    let authorElementName  = "name"
+    let contentElementName = "content"
     
     var entries = [Entry]()
     
@@ -40,6 +42,11 @@ class ListViewController: UITableViewController, UITableViewDataSource, UITableV
     func parserDidStartDocument(parser: NSXMLParser) {
     }
     
+    func parseRss() -> Void {
+        var parser = NSXMLParser(contentsOfURL: feedUrl)
+        parser?.parse()
+    }
+    
     func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [NSObject : AnyObject]) {
         currentElementName = nil
         if elementName == entryElementName {
@@ -47,9 +54,23 @@ class ListViewController: UITableViewController, UITableViewDataSource, UITableV
         } else {
             currentElementName = elementName
         }
+        contentHtmlString = ""
     }
     
     func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        if (currentElementName == contentElementName) {
+            let lastEntry = entries[entries.count - 1]
+            // parse image src
+            let pattern = "<img.*?src=\"(.*?)\""
+            let range = NSMakeRange(0, count(contentHtmlString))
+            let regex = NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive, error: nil)
+            if let matches = regex!.firstMatchInString(contentHtmlString, options: NSMatchingOptions.WithoutAnchoringBounds, range: range) {
+                let imgUrl = ((contentHtmlString as NSString).substringWithRange(matches.rangeAtIndex(1)))
+                lastEntry.imageUrl = imgUrl
+            } else {
+                lastEntry.imageUrl = nil
+            }
+        }
         currentElementName = nil
     }
     
@@ -57,11 +78,25 @@ class ListViewController: UITableViewController, UITableViewDataSource, UITableV
         if entries.count > 0 {
             var lastEntry = entries[entries.count - 1]
             if currentElementName == titleElementName {
-                lastEntry.title = string
+                if lastEntry.title == nil {
+                    lastEntry.title = string
+                } else {
+                    lastEntry.title = lastEntry.title + string!
+                }
             } else if currentElementName == urlElementName {
-                lastEntry.link = string
+                if lastEntry.link == nil {
+                    lastEntry.link = string
+                } else {
+                    lastEntry.link = lastEntry.link + string!
+                }
             } else if currentElementName == authorElementName {
-                lastEntry.author = string
+                if lastEntry.author == nil {
+                    lastEntry.author = string
+                } else {
+                    lastEntry.author = lastEntry.author + string!
+                }
+            } else if currentElementName == contentElementName {
+                contentHtmlString = contentHtmlString + string!
             }
         }
     }
@@ -70,6 +105,10 @@ class ListViewController: UITableViewController, UITableViewDataSource, UITableV
         self.tableView.reloadData()
     }
     
+    @IBAction func refresh(sender: AnyObject) {
+        parseRss()
+        self.tableView.reloadData()
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -94,15 +133,31 @@ class ListViewController: UITableViewController, UITableViewDataSource, UITableV
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ListViewCell
         let item = entries[indexPath.row]
         
-        cell.content(item.title, url: item.link, author: item.author, thumbnail: nil)
+        cell.content(item.title, url: item.link, author: item.author, thumbnail: item.imageUrl)
 
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("tableview")
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        print("prepare")
         let selectedIndex = self.tableView.indexPathForSelectedRow()?.row
         var subViewController = segue.destinationViewController as! DetailViewController
         
         subViewController.entry = entries[selectedIndex!]
     }
 }
+
+/*
+extension String {
+    func firstMatchIn(string: String!, atRangeIndex: Int!) -> String {
+        var error : NSError?
+        let re = NSRegularExpression(pattern: self, options: .CaseInsensitive, error: &error)
+        let match = re!.firstMatchInString(string, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, string.length));)
+        return string.substringWithRange(match.rangeAtIndex(atRangeIndex))
+    }
+}
+*/
