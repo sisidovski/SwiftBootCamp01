@@ -138,26 +138,10 @@ class ListViewController: UITableViewController, UITableViewDataSource, UITableV
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("tableview")
-    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print("prepare")
         let selectedIndex = self.tableView.indexPathForSelectedRow()?.row
         var subViewController = segue.destinationViewController as! DetailViewController
         
         subViewController.entry = entries[selectedIndex!]
     }
 }
-
-/*
-extension String {
-    func firstMatchIn(string: String!, atRangeIndex: Int!) -> String {
-        var error : NSError?
-        let re = NSRegularExpression(pattern: self, options: .CaseInsensitive, error: &error)
-        let match = re!.firstMatchInString(string, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, string.length));)
-        return string.substringWithRange(match.rangeAtIndex(atRangeIndex))
-    }
-}
-*/
