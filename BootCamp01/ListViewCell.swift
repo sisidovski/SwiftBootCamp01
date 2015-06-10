@@ -40,6 +40,8 @@ class ListViewCell: UITableViewCell {
             let imageData = NSData(contentsOfURL: imageUrl!, options: NSDataReadingOptions.DataReadingMappedIfSafe, error: nil)
             let image = UIImage(data: imageData!)
             thumbnailImage.image = image
+        } else {
+            thumbnailImage.image = nil
         }
     }
 }
